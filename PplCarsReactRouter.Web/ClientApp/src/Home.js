@@ -17,7 +17,8 @@ class PeopleTable extends React.Component {
             make: '',
             model: '',
             year: ''
-        }
+        },
+        searchText: ''
     }
 
     componentDidMount = async () => {
@@ -29,11 +30,29 @@ class PeopleTable extends React.Component {
         this.setState({ people: data });
     }
 
+    clearSearch = () => {
+        this.setState({ searchText: '' });
+        this.fillTable();
+    }
+
+    searchChange = async e => {
+        this.setState({ searchText: e.target.value });
+        if (e.target.value.length == 0) {
+            this.fillTable();
+        }
+        else {
+            const { data } = await axios.get(`api/peopleCars/GetSearch?searchText=${e.target.value}`);
+            this.setState({ people: data })
+        }
+    }
 
     render() {
         const { people } = this.state;
         return (
             <>
+
+                <input type='text' placeholder='Search People' onChange={this.searchChange} value={this.state.searchText} />
+                <button className='btn btn-success' onClick={this.clearSearch}>Clear</button>
                 <Link to={'/addPerson'}>
                     <button className='btn btn-primary'>Add Person</button>
                 </Link>

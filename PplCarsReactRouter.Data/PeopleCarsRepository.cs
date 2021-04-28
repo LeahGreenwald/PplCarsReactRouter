@@ -45,5 +45,13 @@ namespace PplCarsReactRouter.Data
             using var context = new PeopleCarsDbContext(_connectionString);
             context.Database.ExecuteSqlInterpolated($"DELETE FROM Cars WHERE personId = {id}");
         }
+        public List<Person> GetSearch(string searchText)
+        {
+            var context = new PeopleCarsDbContext(_connectionString);
+            return context.People
+                .Where(p => p.FirstName.ToLower().Contains(searchText.ToLower()) || p.LastName.ToLower().Contains(searchText.ToLower()))
+                .Include(p => p.Cars)
+                .ToList();
+        }
     }
 }

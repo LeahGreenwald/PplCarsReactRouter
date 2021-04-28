@@ -47,7 +47,6 @@ namespace PplCarsReactRouter.Web.Controllers
             var repo = new PeopleCarsRepository(_connectionString);
             return repo.GetPersonById(id);
         }
-
         [Route("GetCarsForPerson")]
         [HttpGet]
         public List<Car> GetCarsForPerson(int id)
@@ -61,6 +60,13 @@ namespace PplCarsReactRouter.Web.Controllers
         {
             var repo = new PeopleCarsRepository(_connectionString);
             repo.DeleteCars(id);
+        }
+        [Route("GetSearch")]
+        [HttpGet]
+        public List<Person> GetSearch(string searchText)
+        {
+            var repo = new PeopleCarsRepository(_connectionString);
+            return repo.GetSearch(searchText);
         }
     }
 }
