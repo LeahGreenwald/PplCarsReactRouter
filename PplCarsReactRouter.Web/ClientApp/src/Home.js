@@ -7,17 +7,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 class PeopleTable extends React.Component {
     state = {
         people: [],
-        person: {
-            firstName: '',
-            lastName: '',
-            age: ''
-        },
-        car: {
-            personId: '',
-            make: '',
-            model: '',
-            year: ''
-        },
         searchText: ''
     }
 
